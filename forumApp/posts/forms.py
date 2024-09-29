@@ -16,6 +16,20 @@ class PersonForm(forms.Form):
             'class': 'form-control'
         })
     )
+
+    # person_name = forms.CharField(
+    #     label='Съдържание',
+    #     max_length=10,
+    #     widget=forms.Textarea,
+    # )
+
+    # person_name = forms.CharField(
+    #     label='Въведете email',
+    #     max_length=10,
+    #     widget=forms.EmailInput(attrs={
+    #         'placeholder': 'Email'})
+    # )
+
     age = forms.IntegerField(
         widget=forms.NumberInput(attrs={
             'min': 0,
