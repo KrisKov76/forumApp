@@ -1,0 +1,51 @@
+{% load static %}
+{% load markdown_extras %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="preconnect" href="htts://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+{% include 'nav.html' %}
+<div class="container">
+    <div class="posts">
+
+        {% for post in posts %}
+            <div class="post">
+                <h2>{{ post.title|capfirst }}</h2>         
+          
+                {# проверка дали имаме съдържание #}
+                {% if not post.content %}
+                    {% lorem 3 p %}
+                {% else %}
+                    {{ post.content|markdown }}
+                {% endif %}
+
+                {# информация затова кой е направил поста #}
+                <div class="post-meta">
+                    <span>Posted by {{ post.author|default:"anonymous" }} on {{ post.created_at|date:"d-M-Y" }}</span>
+                </div>
+            </div>
+
+            {# ако няма постове - изкарай "No posts" #}
+        {% empty %}
+            <h1>No Postst</h1>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+</body>
+<script src='https://unpkg.com/akar-icons-fonts'></script>
+</html>
