@@ -44,6 +44,19 @@ class PersonForm(forms.Form):
         widget=forms.Select(choices=STATUS_CHOICE),
     )
 
+    new_status = forms.IntegerField(
+        widget=forms.RadioSelect(choices=STATUS_CHOICE),
+    )
+
+    checkboxes = forms.MultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple,
+        choices=STATUS_CHOICE,
+    )
+
+    date = forms.DateField()
+
+    file = forms.FileField()
+
 # class PostBaseForm(forms.ModelForm):
 #     class Meta:
 #         model = Post
