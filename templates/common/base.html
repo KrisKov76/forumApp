@@ -34,9 +34,13 @@
 
             </div>
             <div class="col-md-2 p-3 d-flex justify-content-end ">
-{#                <div>#}
-{#                    {% user_info request.user %}#}
-{#                </div>#}
+                <p>
+                    {% if user.is_authenticated %}
+                        Hello: <a href="{% url 'admin:index' %}">{{ user.username }}</a>
+                    {% else %}
+                        Hello: <a href="{% url 'admin:index' %}">Anonymous</a>
+                    {% endif %}
+                </p>
             </div>
         </div>
     </div>

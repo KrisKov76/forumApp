@@ -2,19 +2,12 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-
-        <h1>Hello user!</h1>
-
+    <h1>Hello user!</h1>
     {{ dynamic_time }}
-  <form method="post">
-    {%  crispy my_form %}
-      {% csrf_token %}
-    <button>Submit</button>
-  </form>
-
-{#    <form method="post">#}
-{#        {% csrf_token %}#}
+{#  <form method="post">#}
+{#    {%  crispy my_form %}#}
+{#      {% csrf_token %}#}
 {#    <button>Submit</button>#}
-{#    </form>#}
-
+{#  </form>#}
+    
 {% endblock %}

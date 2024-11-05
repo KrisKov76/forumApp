@@ -1,0 +1,16 @@
+{% extends 'common/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1>Hello user!</h1>
+    {{ static_time|time:"s" }}
+    {{ dynamic_time|time:"s" }}
+
+    <h1> You are logged in </h1>
+{#  <form method="post">#}
+{#    {%  crispy my_form %}#}
+{#      {% csrf_token %}#}
+{#    <button>Submit</button>#}
+{#  </form>#}
+
+{% endblock %}
