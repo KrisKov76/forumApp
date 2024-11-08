@@ -87,6 +87,9 @@ USE_TZ = True
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+SESSION_COOKIE_HTTPONLY = True # да се достъпва само през HTTPS
+SESSION_COOKIE_SECURE = True # да не може да се достъпва чрез js
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
@@ -95,7 +98,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/post_images/'
 MEDIA_ROOT = BASE_DIR / 'post_images'
 
-AUTH_USER_MODEL = 'accounts.CustomUser'
+AUTH_USER_MODEL = 'accounts.AppUser'#2 - добавихме CustomUser в settings
+
 LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
 

@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import modelform_factory
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -34,17 +35,29 @@ class DashboardView(ListView, FormView):
     success_url = reverse_lazy('dashboard')
     model = Post
 
-    def get_queryset(self):
-        queryset = self.model.objects.all()
 
-        if 'query' in self.request.GET:
-            query = self.request.GET.get('query')
-            queryset = queryset.filter(title__icontains=query)
+def get_queryset(self):
+    queryset = self.model.objects.all()
 
-        return queryset
+    # Проверяваме всички разрешения на потребителя (индивидуални и групови)
+    if not self.request.user.has_perm('posts.can_approve_post'):
+        queryset = queryset.filter(approved=True)
+
+    # Проверяваме дали има заявка за търсене и я прилагаме
+    if 'query' in self.request.GET:
+        query = self.request.GET.get('query')
+        queryset = queryset.filter(title__icontains=query)
+
+    return queryset
 
 
-class AddPostView(CreateView):
+def approve_post(request, pk):
+    post = Post.objects.get(pk=pk)
+    post.approved = True
+    post.save()
+    return redirect(request.META.get('HTTP_REFERER'))
+
+class AddPostView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostCreateForm
     template_name = 'posts/add-post.html'
@@ -110,7 +123,7 @@ class PostDetailView(DetailView):
 #         "formset": formset,
 #     }
 
-    # return render(request, 'posts/details-post.html', context)
+# return render(request, 'posts/details-post.html', context)
 
 
 class DeletePostView(DeleteView, FormView):
@@ -129,5 +142,3 @@ class RedirectHomeView(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):  # dynamic_way
         pass
-
-
