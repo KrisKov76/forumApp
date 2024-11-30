@@ -7,9 +7,10 @@ from forumApp.accounts.managers import AppUserManager
 
 
 class AppUser(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(unique=True)  # Премахната е запетаята
-    username = models.CharField(max_length=100, unique=True)  # Премахната е запетаята
+    email = models.EmailField(unique=True)
+    username = models.CharField(max_length=100, unique=True)
 
+    # копираме ги (добавяме ги) от
     is_staff = models.BooleanField(
         _("staff status"),
         default=False,
@@ -25,8 +26,9 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
         ),
     )
 
-    objects = AppUserManager()
+    objects = AppUserManager() #
 
+    EMAIL_FILED = "email"
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 

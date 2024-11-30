@@ -21,7 +21,7 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'crispy_bootstrap4',
-    "forumApp.accounts.apps.AccountsConfig"
+        "forumApp.accounts.apps.AccountsConfig"
 ]
 
 MIDDLEWARE = [
@@ -61,6 +61,11 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = [
+    'forumApp.accounts.authentication.EmailorUsernameBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -98,7 +103,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/post_images/'
 MEDIA_ROOT = BASE_DIR / 'post_images'
 
-AUTH_USER_MODEL = 'accounts.AppUser'#2 - добавихме CustomUser в settings
+AUTH_USER_MODEL = 'accounts.AppUser'
 
 LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGOUT_REDIRECT_URL = reverse_lazy('index')

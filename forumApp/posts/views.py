@@ -40,7 +40,7 @@ def get_queryset(self):
     queryset = self.model.objects.all()
 
     # Проверяваме всички разрешения на потребителя (индивидуални и групови)
-    if not self.request.user.has_perm('posts.can_approve_post'):
+    if 'posts.can_approve_post' not in self.request.user.has_permissions():
         queryset = queryset.filter(approved=True)
 
     # Проверяваме дали има заявка за търсене и я прилагаме

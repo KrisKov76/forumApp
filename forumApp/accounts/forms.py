@@ -3,10 +3,12 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
 class CustomUserForm(UserCreationForm):
-    class Meta:
+    class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = ('username', 'email')  # Corrected 'field' to 'fields'
+        fields = ('username', 'email')
 
 
 class CustomUserChangeForm(UserChangeForm):
-    pass
+    class Meta(UserChangeForm.Meta):
+        model = get_user_model()
+        fields = "__all__"
